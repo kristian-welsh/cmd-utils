@@ -1,2 +1,2 @@
 @ ECHO OFF
-ls %~dp0
+ls "%~dp0"
