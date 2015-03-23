@@ -1,5 +1,5 @@
 @ echo off
-rem Extract first two lines of output from ssh-agent to set output as a variable (minus end part). Then run ssh-add on %~%/.ssh/id_rsa
+rem Extract first two lines of output from ssh-agent to set output as a variable (minus end part). Then run ssh-add on id_rsa
 
 rem probably should change the temp file path to be %~dp0
 echo ssh-setup is incomplete
