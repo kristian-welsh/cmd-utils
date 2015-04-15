@@ -1,23 +1,13 @@
 @ echo off
+rem count number of active ssh-agent procceses
+tasklist /fi "imagename eq ssh-agent.exe" | find /C "ssh-agent.exe" > "%~dp0ssh-agent-task-count.tmp"
+  set /p active_ssh_agents=<"%~dp0ssh-agent-task-count.tmp"
+del "%~dp0ssh-agent-task-count.tmp"
 
-rem ToDo: Don't start an ssh-agent if there's already one on the task list.
-
-rem start an ssh session
-rem To setup an ssh connection you extract first two lines of output from ssh-agent to set output as a variable (minus end part). Then run ssh-add on id_rsa
-setlocal EnableDelayedExpansion
-
-  ssh-agent > "%~dp0ssh-agent-output.tmp"
-    rem extract each line of output into it's own variable
-    set /a num=0
-    for /f "usebackq tokens=*" %%A in ("%~dp0ssh-agent-output.tmp") do (
-      set /a num+=1
-      set ssh_agent_output_line!num!=%%A
-    )
-  del "%~dp0ssh-agent-output.tmp"
-  
-  rem extract data from ssh-agent output and set the variables
-  set SSH_AUTH_SOCK=%ssh_agent_output_line1:~14,32%
-  set SSH_AGENT_PID=%ssh_agent_output_line2:~14,4%
-  
-  ssh-add "%userprofile%\.ssh\id_rsa"
-endlocal
+rem if there isn't an active ssh session, start a new one.
+if %active_ssh_agents% lss 1 (
+  echo starting new ssh session.
+  call start-ssh.cmd
+) else (
+  echo ssh session already active.
+)
