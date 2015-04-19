@@ -6,11 +6,11 @@ setlocal EnableDelayedExpansion
   ssh-agent > "%~dp0ssh-agent-output.tmp"
 
     rem Extract each line of output into it's own variable.
-    set /a num=0    
+    set /a num=0
     rem For each line in output file
-    for /f "usebackq tokens=*" %%A in ("%~dp0ssh-agent-output.tmp") do (
+    for /f "tokens=* usebackq" %%a in ("%~dp0ssh-agent-output.tmp") do (
       set /a num+=1
-      set ssh_agent_output_line!num!=%%A
+      set ssh_agent_output_line!num!=%%a
     )
 
   del "%~dp0ssh-agent-output.tmp"

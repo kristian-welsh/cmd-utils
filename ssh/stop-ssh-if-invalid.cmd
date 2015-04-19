@@ -7,5 +7,5 @@ del "%~dp0ssh-information.tmp"
 
 rem If it was skipped, stop the session.
 if "%ssh_info%" == "The agent has no identities." (
-  call ssh\stop-ssh
+  call "%~dp0stop-ssh"
 )

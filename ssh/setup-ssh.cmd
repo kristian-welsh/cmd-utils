@@ -14,10 +14,9 @@ del "%~dp0ssh-agent-task-count.tmp"
 rem If ssh isn't running, start ssh.
 if %active_ssh_agents% lss 1 (
   echo starting new ssh session.
-
-  call ssh\prepare-ssh-agent
-  call ssh\start-ssh
-  call ssh\stop-ssh-if-invalid
+  call "%~dp0prepare-ssh-agent"
+  call "%~dp0start-ssh"
+  call "%~dp0stop-ssh-if-invalid"
 ) else (
   echo ssh session already active.
 )

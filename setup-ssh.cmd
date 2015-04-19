@@ -1,1 +1,1 @@
-@ ssh/setup-ssh
+@ "%~dp0ssh/setup-ssh"
