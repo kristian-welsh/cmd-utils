@@ -1,10 +1,13 @@
 @ echo off
 
+rem Note: sometimes on opening new cmd from FD it throws 2 Could not open errors
+rem Note: might not use the remembered key for pushing (not sure, test it)
 rem Note: After first run seems to continue to work in new same window cmd sessions, but new window cmd sessions throw permission denied in ssh -T
 rem calls start ssh\ as they are run with current dir one dir up
 
 rem TODO: Only run on first call to git push.
 rem TODO: Custom status outputs
+rem TODO: Replace temp files with looping over command output.
 
 rem Count active ssh-agent procceses.
 tasklist /fi "imagename eq ssh-agent.exe" | find /C "ssh-agent.exe" > "%~dp0ssh-agent-task-count.tmp"
